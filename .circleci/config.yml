@@ -15,4 +15,4 @@ jobs:
 
       - run:
           name: build
-          command: dotnet build ShareBook/ShareBook.sln --verbosity detailed
+          command: dotnet build ShareBook/ShareBook.sln --no-restore
