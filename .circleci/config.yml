@@ -10,9 +10,9 @@ jobs:
       - checkout
 
       - run: 
-        name: build
-        command: dotnet build ShareBook/ShareBook.sln
+          name: build
+          command: dotnet build ShareBook/ShareBook.sln
 
       - run:
-        name: tests
-        command: dotnet test ShareBook/ShareBook.sln
+          name: tests
+          command: dotnet test ShareBook/ShareBook.sln
