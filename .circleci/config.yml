@@ -10,8 +10,9 @@ jobs:
       - checkout
 
       - restore_cache:
-          - v1-dependencies-{{ checksum "/tmp/restore.json" }}
-          - v1-dependencies
+          keys:
+            - v1-dependencies-{{ checksum "/tmp/restore.json" }}
+            - v1-dependencies
 
       - run:
           name: restore
