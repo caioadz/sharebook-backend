@@ -12,7 +12,7 @@ jobs:
       - run:
           name: generate restore graph
           command: |
-            dotnet msbuild -t:GenerateRestoreGraphFile ShareBook/ShareBook.sln
+            dotnet msbuild ShareBook/ShareBook.sln -t:GenerateRestoreGraphFile /p:RestoreGraphOutputPath=/tmp/restore.json
             cat /tmp/restore.json
 
       - restore_cache:
