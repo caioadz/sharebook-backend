@@ -95,7 +95,7 @@ namespace ShareBook.Domain
         {
             if (ChooseDate == null) return false;
 
-            var today = DateTimeHelper.GetTodaySaoPaulo();
+            var today = DateTime.Now;
             DateTime ChooseDateMidnight = new DateTime(ChooseDate.Value.Year, ChooseDate.Value.Month, ChooseDate.Value.Day, 0, 0, 0);
             return today >= ChooseDateMidnight;
         }

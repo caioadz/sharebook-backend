@@ -98,21 +98,21 @@ namespace ShareBook.Test.Unit.Domain
         [Fact]
         public void MayChooseWinnerWhenChooseDateIsYesterday()
         {
-            var book = new Book { ChooseDate = DateTimeHelper.GetTodaySaoPaulo().AddDays(-1) };
+            var book = new Book { ChooseDate = DateTime.Now.AddDays(-1) };
             Assert.True(book.MayChooseWinner());
         }
 
         [Fact]
         public void MayChooseWinnerWhenChooseDateIsToday()
         {
-            var book = new Book { ChooseDate = DateTimeHelper.GetTodaySaoPaulo() };
+            var book = new Book { ChooseDate = DateTime.Now };
             Assert.True(book.MayChooseWinner());
         }
 
         [Fact]
         public void MayNotChooseWinnerWhenChooseDateIsTomorrow()
         {
-            var book = new Book { ChooseDate = DateTimeHelper.GetTodaySaoPaulo().AddDays(1) };
+            var book = new Book { ChooseDate = DateTime.Now.AddDays(1) };
             Assert.False(book.MayChooseWinner());
         }
     }

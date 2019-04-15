@@ -48,7 +48,7 @@ namespace ShareBook.Api.Controllers
                 ServerNow = DateTime.Now,
                 SaoPauloNow = DateTimeHelper.ConvertDateTimeSaoPaulo(DateTime.Now),
                 ServerToday = DateTime.Today,
-                SaoPauloToday = DateTimeHelper.GetTodaySaoPaulo(),
+                SaoPauloToday = DateTime.Now,
                 Message = "Pong!"
             };
             return Ok(result);
