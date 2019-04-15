@@ -9,6 +9,12 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: generate restore graph
+          command: |
+            dotnet msbuild -t:GenerateRestoreGraphFile
+            cat /tmp/restore.json
+
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "/tmp/restore.json" }}
