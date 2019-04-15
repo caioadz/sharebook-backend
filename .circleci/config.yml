@@ -22,7 +22,7 @@ jobs:
 
       - run:
           name: restore
-          command: dotnet restore
+          command: dotnet restore ShareBook/ShareBook.sln
 
       - save_cache:
           key: v1-dependencies-{{ checksum "/tmp/restore.json" }}
