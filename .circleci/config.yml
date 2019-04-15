@@ -10,26 +10,6 @@ jobs:
       - checkout
 
       - run:
-          name: generate restore graph
-          command: |
-            dotnet msbuild ShareBook/ShareBook.sln -t:GenerateRestoreGraphFile /p:RestoreGraphOutputPath=/tmp/restore.json
-            cat /tmp/restore.json
-
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "/tmp/restore.json" }}
-            - v1-dependencies
-
-      - run:
-          name: restore
-          command: dotnet restore ShareBook/ShareBook.sln
-
-      - save_cache:
-          key: v1-dependencies-{{ checksum "/tmp/restore.json" }}
-          paths:
-            - ~/.nuget/packages
-
-      - run:
           name: build
           command: dotnet build ShareBook/ShareBook.sln
 
