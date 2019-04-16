@@ -2,7 +2,7 @@ version: '3'
 
 services:
   terraform:
-    build: ./docker/terraform
+    build: ./deploy/docker/terraform
     volumes:
       - .:/terraform
 
