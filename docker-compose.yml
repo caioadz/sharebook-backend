@@ -1,8 +1,11 @@
 version: '3'
 
-# Inicio configuracao do ASP.NET
-
 services:
+  terraform:
+    build: ./docker/terraform
+    volumes:
+      - .:/terraform
+
   sharebook.api:
     image: sharebook
     ports:
@@ -13,6 +16,7 @@ services:
 
     networks:
       - sharebook
+
 networks: 
   sharebook: 
     driver: bridge
