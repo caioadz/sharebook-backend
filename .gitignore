@@ -248,3 +248,4 @@ ModelManifest.xml
 .DS_Store
 
 .vscode
+.terraform
