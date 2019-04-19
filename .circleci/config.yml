@@ -41,21 +41,14 @@ jobs:
           name: tests
           command: dotnet test ShareBook/ShareBook.Test.Unit/ShareBook.Test.Unit.csproj
 
-  deploy_prod:
-    steps:
-      - aws-ecr/build_and_push_image:
-          account-url: PROD_ECR_ACCOUNT_URL
-          repo: sharebook
-          tag: latest
-          requires:
-            - test
-  
-
 workflows:
   version: 2.1
   deploy:
     jobs:
       - test
-      - deploy_prod:
+      - aws-ecr/build_and_push_image:
+          account-url: PROD_ECR_ACCOUNT_URL
+          repo: sharebook
+          tag: latest
           requires:
             - test
