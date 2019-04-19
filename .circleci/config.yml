@@ -49,7 +49,7 @@ workflows:
       - aws-ecr/build_and_push_image:
           account-url: AWS_ECR_ACCOUNT_URL
           repo: sharebook
-          tag: "${CIRCLE_BRANCH}-latest"
+          tag: ${CIRCLE_BRANCH}
           requires:
             - test
           filters:
