@@ -56,6 +56,6 @@ workflows:
   deploy:
     jobs:
       - test
-      - deploy_prod
+      - deploy_prod:
         requires:
           - test
