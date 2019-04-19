@@ -42,6 +42,7 @@ jobs:
           command: dotnet test ShareBook/ShareBook.Test.Unit/ShareBook.Test.Unit.csproj
 
 workflows:
+  version: 2
   push_image_prod:
       jobs:
         - aws-ecr/build_and_push_image:
