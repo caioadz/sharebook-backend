@@ -49,7 +49,7 @@ workflows:
       - aws-ecr/build_and_push_image:
           account-url: AWS_ECR_ACCOUNT_URL
           repo: sharebook
-          tag: ${CIRCLE_BRANCH}
+          tag: ${CIRCLE_BRANCH} # This orb does not allow multi-tag yet: https://github.com/CircleCI-Public/aws-ecr-orb/issues/20
           requires:
             - test
           filters:
