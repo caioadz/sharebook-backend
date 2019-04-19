@@ -41,14 +41,29 @@ jobs:
           name: tests
           command: dotnet test ShareBook/ShareBook.Test.Unit/ShareBook.Test.Unit.csproj
 
+  set_env:
+    machine: true
+
+    steps:
+      - run:
+          name: Set environment variables
+          command: |
+            export ECR_ACCOUNT_URL="${CIRCLE_BRANCH}_ECR_ACCOUNT_URL"
+
 workflows:
   version: 2.1
-  deploy:
+  test_deploy:
     jobs:
       - test
+      - set_env
       - aws-ecr/build_and_push_image:
-          account-url: PROD_ECR_ACCOUNT_URL
+          account-url: ECR_ACCOUNT_URL
           repo: sharebook
           tag: latest
           requires:
             - test
+            - set_env
+          filters:
+            branches:
+              only:
+                - master
