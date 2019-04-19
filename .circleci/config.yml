@@ -4,7 +4,7 @@ orbs:
   aws-ecr: circleci/aws-ecr@4.0.1
 
 jobs:
-  build:
+  test:
     docker:
       - image: microsoft/dotnet:2.2-sdk
 
@@ -45,9 +45,10 @@ workflows:
   version: 2.1
   deploy:
     jobs:
-      - build
+      - test
       - aws-ecr/build_and_push_image:
           account-url: PROD_ECR_ACCOUNT_URL
-          region: AWS_REGION_ENV_VAR_NAME
           repo: sharebook
           tag: latest
+          requires:
+            - test
