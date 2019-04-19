@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 orbs:
   aws-ecr: circleci/aws-ecr@4.0.1
@@ -40,13 +40,3 @@ jobs:
       - run:
           name: tests
           command: dotnet test ShareBook/ShareBook.Test.Unit/ShareBook.Test.Unit.csproj
-
-workflows:
-  version: 2
-  push_image_prod:
-      jobs:
-        - aws-ecr/build_and_push_image:
-            account-url: PROD_ECR_ACCOUNT_URL
-            region: AWS_REGION_ENV_VAR_NAME
-            repo: sharebook
-            tag: latest
