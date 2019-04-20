@@ -4,7 +4,7 @@ data "aws_availability_zones" "availability_zones"
 }
 
 module "public_subnet_1" {
-  source = "../subnet"
+  source = "./modules/subnet"
 
   name = "${var.prefix}-public-1"
   cidr_block = "${var.cidr_block_public_subnet_1}"
@@ -15,7 +15,7 @@ module "public_subnet_1" {
 }
 
 module "public_subnet_2" {
-  source = "../subnet"
+  source = "./modules/subnet"
 
   name = "${var.prefix}-public-2"
   cidr_block = "${var.cidr_block_public_subnet_2}"
@@ -26,7 +26,7 @@ module "public_subnet_2" {
 }
 
 module "private_subnet_1" {
-  source = "../subnet"
+  source = "./modules/subnet"
 
   name = "${var.prefix}-private-1"
   cidr_block = "${var.cidr_block_private_subnet_1}"
@@ -36,7 +36,7 @@ module "private_subnet_1" {
 }
 
 module "private_subnet_2" {
-  source = "../subnet"
+  source = "./modules/subnet"
 
   name = "${var.prefix}-private-2"
   cidr_block = "${var.cidr_block_private_subnet_2}"
