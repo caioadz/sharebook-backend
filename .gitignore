@@ -249,3 +249,5 @@ ModelManifest.xml
 
 .vscode
 .terraform
+**/terraform.tfstate.backup
+**/terraform.tfstate
