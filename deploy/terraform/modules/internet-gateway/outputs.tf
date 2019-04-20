@@ -1,3 +1,3 @@
 output "id" {
-  value = "${aws_vpc.vpc.id}"
+  value = "${aws_internet_gateway.internet_gateway.id}"
 }
