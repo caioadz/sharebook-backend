@@ -13,3 +13,7 @@ variable "cidr_block" {
 variable "availability_zone" {
   description = "Availability Zone where this Subnet will reside."
 }
+
+variable "assign_public_ip" {
+  description = "Boolean indicating whether public IPs should be assigned or not on launch."
+}
