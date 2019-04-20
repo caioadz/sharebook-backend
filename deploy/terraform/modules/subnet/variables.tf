@@ -16,4 +16,5 @@ variable "availability_zone" {
 
 variable "assign_public_ip" {
   description = "Boolean indicating whether public IPs should be assigned or not on launch."
+  default = "false"
 }
