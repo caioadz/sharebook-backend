@@ -1,11 +1,6 @@
 version: '3'
 
 services:
-  terraform:
-    build: ./deploy/docker/terraform
-    volumes:
-      - .:/terraform
-
   sharebook.api:
     image: sharebook
     ports:
