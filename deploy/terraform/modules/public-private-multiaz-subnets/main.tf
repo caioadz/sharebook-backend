@@ -53,3 +53,21 @@ module "private_subnet_2" {
   vpc_id = "${var.vpc_id}"
   availability_zone = "${local.availability_zone_2}"
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# CREATE A NAT GATEWAY FOR EACH PUBLIC SUBNET
+# ---------------------------------------------------------------------------------------------------------------------
+
+module "nat_gateway_1" {
+  source = "./modules/nat-gateway"
+
+  name = "${var.prefix}-1"
+  subnet_id = "${module.public_subnet_1.id}"
+}
+
+module "nat_gateway_2" {
+  source = "./modules/nat-gateway"
+
+  name = "${var.prefix}-2"
+  subnet_id = "${module.public_subnet_2.id}"
+}

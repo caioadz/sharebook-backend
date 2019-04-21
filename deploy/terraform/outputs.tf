@@ -25,3 +25,10 @@ output "availability_zone_2" {
   value = "${module.public_private_multiaz_subnets.availability_zone_2}"
 }
 
+output "public_ip_1" {
+  value = "${module.public_private_multiaz_subnets.public_ip_1}"
+}
+
+output "public_ip_2" {
+  value = "${module.public_private_multiaz_subnets.public_ip_2}"
+}
