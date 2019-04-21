@@ -15,10 +15,10 @@ output "id_private_subnet_2" {
 }
 
 output "availability_zone_1" {
-  value = "${data.aws_availability_zones.availability_zones.names[0]}"
+  value = "${local.availability_zone_1}"
 }
 
 output "availability_zone_2" {
-  value = "${data.aws_availability_zones.availability_zones.names[1]}"
+  value = "${local.availability_zone_2}"
 }
 
