@@ -2,7 +2,6 @@ version: '3'
 
 services:
   sharebook.api:
-    image: sharebook
     ports:
       - "80:80"
     build:
