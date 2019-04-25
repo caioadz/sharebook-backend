@@ -32,3 +32,9 @@ Con:
 3. VPN
 
 ...
+
+Z. References:
+- https://aws.amazon.com/pt/blogs/mt/replacing-a-bastion-host-with-amazon-ec2-systems-manager/
+- https://medium.com/@henriksylvesterpedersen/you-dont-need-that-bastion-host-cd1b1717a9e7
+- https://www.reddit.com/r/aws/comments/8vndl3/you_dont_need_that_bastion_host/
+- https://docs.aws.amazon.com/quickstart/latest/linux-bastion/overview.html
