@@ -1,0 +1,34 @@
+VPC architecture:
+
+1. All public
+
+- Deploy your services in a public subnet
+- Secure through Security Groups and ACLs
+
+Pro:
+- Simplicity
+- Reduced cost
+
+Con:
+- As different images and services gets deployed, it gets harder to secure each one
+- Increase the surface of attack
+
+2. Bastion host
+
+- Deploy a Bastion Host in a public subnet
+- Allow SSH inbound traffic to the Bastion host
+- Deploy a NAT Gateway
+- Deploy your services in a private subnet (possibly using a VPC Endpoint instead of a NAT Gateway, when internet access not required, for reduced cost)
+- Allow outbound traffic from your services through the NAT Gateway
+- Allow inbound SSH from your Bastion Host's Security Group
+
+Pro:
+- You only have to worry about your Bastion Host's vulnerability (smaller attack surface)
+
+Con:
+- Cost (+Bastion's EC2, +NAT Gateway, +Auto Scaling Group for Bastion [possibly]...)
+- Complexity (more infrastructure to maintain)
+
+3. VPN
+
+...
