@@ -35,6 +35,7 @@ Con:
 ...
 
 Z. References:
+- [YET TO WATCH] https://www.youtube.com/watch?time_continue=4&v=JwLGsWYVjqU
 - https://aws.amazon.com/pt/blogs/mt/replacing-a-bastion-host-with-amazon-ec2-systems-manager/
 - https://medium.com/@henriksylvesterpedersen/you-dont-need-that-bastion-host-cd1b1717a9e7
 - https://www.reddit.com/r/aws/comments/8vndl3/you_dont_need_that_bastion_host/
