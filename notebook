@@ -28,6 +28,7 @@ Pro:
 Con:
 - Cost (+Bastion's EC2, +NAT Gateway, +Auto Scaling Group for Bastion [possibly]...)
 - Complexity (more infrastructure to maintain)
+- It gets harder to access non-ssh resources such as databases
 
 3. VPN
 
