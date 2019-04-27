@@ -1,8 +1,32 @@
+CI/CD on CircleCI:
+
+1. Config
+
+- Build
+- Test
+
+https://circleci.com/docs/2.0/sample-config/
+
+2. Push
+
+- Deploy
+
+https://circleci.com/orbs/registry/orb/circleci/aws-ecr
+
+-----
+
+Image Repository
+
+- Create ECR manually
+- Create ECR through Terraform
+
+-----
+
 VPC architecture:
 
 1. All public
 
-- Deploy your services in a public subnet
+- Deploy your instances in a public subnet
 - Secure through Security Groups and ACLs
 
 Pro:
@@ -28,15 +52,42 @@ Pro:
 Con:
 - Cost (+Bastion's EC2, +NAT Gateway, +Auto Scaling Group for Bastion [possibly]...)
 - Complexity (more infrastructure to maintain)
-- It gets harder to access non-ssh resources such as databases
+- It gets harder to access non-ssh resources such as databases 
+- Tooling may get trickier, some tools will allow you to tunnel throught the Bastion but some won't...
 
 3. VPN
 
-...
+- Deploy your instances into a private subnet
+- Configure your Virtual Private Gateway
+- Configure your Customer Gateway
+- Allow inbound SSH from your on-premises network
+
+Pro:
+- No problem with tools since you're basically extending your internal network to the cloud
+- You will be able to access any resources via any port, as long your ACLs and Security Groups allows it
+- Can be used with any other method above to increase your Security
+
+Con:
+- Configuring a VPN is not trivial and may require specific hardware
+- Now you have additional infrastructure to keep watch (monitoring)
 
 Z. References:
-- [YET TO WATCH] https://www.youtube.com/watch?time_continue=4&v=JwLGsWYVjqU
+
+Architecture
+- https://containersonaws.com/architecture/public-service-private-network/
+- https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Scenarios.html
+- https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html
+
+Bastion hosts
+- https://www.youtube.com/watch?time_continue=4&v=JwLGsWYVjqU
 - https://aws.amazon.com/pt/blogs/mt/replacing-a-bastion-host-with-amazon-ec2-systems-manager/
 - https://medium.com/@henriksylvesterpedersen/you-dont-need-that-bastion-host-cd1b1717a9e7
 - https://www.reddit.com/r/aws/comments/8vndl3/you_dont_need_that_bastion_host/
 - https://docs.aws.amazon.com/quickstart/latest/linux-bastion/overview.html
+
+AWS Site-to-Site VPN
+- https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html
+- https://docs.aws.amazon.com/vpc/latest/adminguide/Introduction.html
+
+AWS Client VPN
+- https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/what-is.html
