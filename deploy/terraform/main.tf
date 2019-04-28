@@ -13,7 +13,7 @@ module "ecr_repository" {
 module "vpc_with_internet_gateway" {
   source = "./modules/vpc-with-internet-gateway"
 
-  vpc_name = "${var.service_name}-prod"
+  vpc_name   = "${var.service_name}-prod"
   cidr_block = "10.0.0.0/16"
 
   internet_gateway_name = "${var.service_name}-prod"
@@ -21,7 +21,7 @@ module "vpc_with_internet_gateway" {
 
 module "public_private_multiaz_subnets" {
   source = "./modules/public-private-multiaz-subnets"
-  
+
   prefix = "${var.service_name}-prod"
   vpc_id = "${module.vpc_with_internet_gateway.vpc_id}"
 

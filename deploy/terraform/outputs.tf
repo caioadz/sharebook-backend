@@ -5,6 +5,7 @@ output "ecr_repository_arn" {
 output "ecr_repository_url" {
   value = "${module.ecr_repository.repository_url}"
 }
+
 output "vpc_arn" {
   value = "${module.vpc_with_internet_gateway.vpc_arn}"
 }

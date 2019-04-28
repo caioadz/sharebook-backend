@@ -2,10 +2,9 @@ variable "name" {
   description = "Name tag of the resources that will be created."
 }
 
-
 variable "subnet_ids" {
-  type = "list"
-  description = "List of public subnets where you want to assign your NAT Gateways."  
+  type        = "list"
+  description = "List of public subnets where you want to assign your NAT Gateways."
 }
 
 variable "subnet_count" {
