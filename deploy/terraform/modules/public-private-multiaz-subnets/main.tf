@@ -1,4 +1,4 @@
-data "aws_availability_zones" "availability_zones"
+data "aws_availability_zones" "available"
 {
   state = "available"
 }
@@ -8,9 +8,19 @@ data "aws_vpc" "vpc" {
 }
 
 locals {
-  subnet_count = "${var.availability_zone_count == 0 ? length(data.aws_availability_zones.availability_zones.names) : var.availability_zone_count}"
+  subnet_count = "${var.availability_zone_count == 0 ? length(data.aws_availability_zones.available.names) : var.availability_zone_count}"
   vpc_cidr_block = "${data.aws_vpc.vpc.cidr_block}"
-  newbits = "${ceil(log(local.subnet_count * 2, 2))}"
+  range_consumed = "${var.consume_full_range == true ? local.subnet_count : length(data.aws_availability_zones.available.names)}"
+  newbits = "${ceil(log(local.range_consumed * 2, 2))}"
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# RANDOMIZE AVAILABILITY ZONES
+# ---------------------------------------------------------------------------------------------------------------------
+
+resource "random_shuffle" "availability_zones" {
+  input = [ "${data.aws_availability_zones.available.names}" ]
+  result_count = "${local.subnet_count}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -24,7 +34,7 @@ resource "aws_subnet" "private" {
   map_public_ip_on_launch = false
 
   cidr_block = "${cidrsubnet(local.vpc_cidr_block, local.newbits, count.index)}"
-  availability_zone = "${element(data.aws_availability_zones.availability_zones.names, count.index)}"
+  availability_zone = "${element(random_shuffle.availability_zones.result, count.index)}"
 
   tags = {
     Name = "${var.prefix}-private-${count.index}"
@@ -38,7 +48,7 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
 
   cidr_block = "${cidrsubnet(local.vpc_cidr_block, local.newbits, local.subnet_count + count.index)}"
-  availability_zone = "${element(data.aws_availability_zones.availability_zones.names, count.index)}"
+  availability_zone = "${element(random_shuffle.availability_zones.result, count.index)}"
 
   tags = {
     Name = "${var.prefix}-public-${count.index}"
