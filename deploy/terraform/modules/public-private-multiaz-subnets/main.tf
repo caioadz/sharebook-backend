@@ -36,7 +36,7 @@ resource "aws_subnet" "private" {
   cidr_block = "${cidrsubnet(local.vpc_cidr_block, local.newbits, count.index)}"
   availability_zone = "${element(random_shuffle.availability_zones.result, count.index)}"
 
-  tags = {
+  tags {
     Name = "${var.prefix}-private-${count.index}"
   }
 }
@@ -50,7 +50,7 @@ resource "aws_subnet" "public" {
   cidr_block = "${cidrsubnet(local.vpc_cidr_block, local.newbits, local.subnet_count + count.index)}"
   availability_zone = "${element(random_shuffle.availability_zones.result, count.index)}"
 
-  tags = {
+  tags {
     Name = "${var.prefix}-public-${count.index}"
   }
 }
@@ -60,12 +60,12 @@ resource "aws_route_table" "private_route_table" {
 
   vpc_id = "${var.vpc_id}"
 
-  route = {
+  route {
     cidr_block = "0.0.0.0/0"
     nat_gateway_id = "${element(module.nat_gateway.ids, count.index)}"
   }
 
-  tags = {
+  tags {
     Name = "${var.prefix}-private-${count.index}"
   }
 }

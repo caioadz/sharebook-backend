@@ -14,6 +14,7 @@ module "internet_gateway" {
 
 resource "aws_route" "igw_route" {
   route_table_id         = "${module.vpc.default_route_table_id}"
+  
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = "${module.internet_gateway.id}"
 }
