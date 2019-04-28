@@ -3,71 +3,67 @@ data "aws_availability_zones" "availability_zones"
   state = "available"
 }
 
+data "aws_vpc" "vpc" {
+  id = "${var.vpc_id}"
+}
+
 locals {
-  availability_zone_1 = "${data.aws_availability_zones.availability_zones.names[0]}"
-  availability_zone_2 = "${data.aws_availability_zones.availability_zones.names[1]}"
+  subnet_count = "${var.availability_zone_count == 0 ? length(data.aws_availability_zones.availability_zones.names) : var.availability_zone_count}"
+  vpc_cidr_block = "${data.aws_vpc.vpc.cidr_block}"
+  newbits = "${ceil(log(local.subnet_count * 2, 2))}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # CREATE A SET OF SUBNETS TO SUPPORT PUBLIC-PRIVATE MULTIAZ ARCHITECTURE
 # ---------------------------------------------------------------------------------------------------------------------
 
-module "public_subnet_1" {
-  source = "./modules/subnet"
+resource "aws_subnet" "private" {
+  count = "${local.subnet_count}"
 
-  name = "${var.prefix}-public-1"
-  cidr_block = "${var.cidr_block_public_subnet_1}"
+  vpc_id     = "${var.vpc_id}"
+  map_public_ip_on_launch = false
 
-  vpc_id = "${var.vpc_id}"
-  availability_zone = "${local.availability_zone_1}"
-  assign_public_ip = "true"
+  cidr_block = "${cidrsubnet(local.vpc_cidr_block, local.newbits, count.index)}"
+  availability_zone = "${element(data.aws_availability_zones.availability_zones.names, count.index)}"
+
+  tags = {
+    Name = "${var.prefix}-private-${count.index}"
+  }
 }
 
-module "public_subnet_2" {
-  source = "./modules/subnet"
+resource "aws_subnet" "public" {
+  count = "${local.subnet_count}"
 
-  name = "${var.prefix}-public-2"
-  cidr_block = "${var.cidr_block_public_subnet_2}"
+  vpc_id     = "${var.vpc_id}"
+  map_public_ip_on_launch = true
 
-  vpc_id = "${var.vpc_id}"
-  availability_zone = "${local.availability_zone_2}"
-  assign_public_ip = "true"
-}
+  cidr_block = "${cidrsubnet(local.vpc_cidr_block, local.newbits, local.subnet_count + count.index)}"
+  availability_zone = "${element(data.aws_availability_zones.availability_zones.names, count.index)}"
 
-module "private_subnet_1" {
-  source = "./modules/subnet"
-
-  name = "${var.prefix}-private-1"
-  cidr_block = "${var.cidr_block_private_subnet_1}"
-
-  vpc_id = "${var.vpc_id}"
-  availability_zone = "${local.availability_zone_1}"
-}
-
-module "private_subnet_2" {
-  source = "./modules/subnet"
-
-  name = "${var.prefix}-private-2"
-  cidr_block = "${var.cidr_block_private_subnet_2}"
-
-  vpc_id = "${var.vpc_id}"
-  availability_zone = "${local.availability_zone_2}"
+  tags = {
+    Name = "${var.prefix}-public-${count.index}"
+  }
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # CREATE A NAT GATEWAY FOR EACH PUBLIC SUBNET
 # ---------------------------------------------------------------------------------------------------------------------
 
-module "nat_gateway_1" {
-  source = "./modules/nat-gateway"
+resource "aws_eip" "eip" {
+  count = "${local.subnet_count}"
 
-  name = "${var.prefix}-1"
-  subnet_id = "${module.public_subnet_1.id}"
+  tags = {
+    Name = "${var.prefix}-${count.index}"
+  }
 }
 
-module "nat_gateway_2" {
-  source = "./modules/nat-gateway"
+resource "aws_nat_gateway" "nat_gateway" {
+  count = "${local.subnet_count}"
 
-  name = "${var.prefix}-2"
-  subnet_id = "${module.public_subnet_2.id}"
+  allocation_id = "${element(aws_eip.eip.*.id, count.index)}"
+  subnet_id     = "${element(aws_subnet.public.*.id, count.index)}"
+
+  tags = {
+    Name = "${var.prefix}-${count.index}"
+  }
 }

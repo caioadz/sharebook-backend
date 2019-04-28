@@ -1,32 +1,34 @@
-output "arn_public_subnet_1" {
-  value = "${module.public_subnet_1.arn}"
+output "public_subnet_ids" {
+  description = "AWS IDs of the created public subnets"
+  value       = ["${aws_subnet.public.*.id}"]
 }
 
-output "id_public_subnet_2" {
-  value = "${module.public_subnet_2.id}"
+output "private_subnet_ids" {
+  description = "AWS IDs of the created private subnets"
+  value       = ["${aws_subnet.private.*.id}"]
 }
 
-output "arn_private_subnet_1" {
-  value = "${module.private_subnet_1.arn}"
+output "public_subnet_cidrs" {
+  description = "CIDR blocks of the created public subnets"
+  value       = ["${aws_subnet.public.*.cidr_block}"]
 }
 
-output "id_private_subnet_2" {
-  value = "${module.private_subnet_2.id}"
+output "private_subnet_cidrs" {
+  description = "CIDR blocks of the created private subnets"
+  value       = ["${aws_subnet.private.*.cidr_block}"]
 }
 
-output "availability_zone_1" {
-  value = "${local.availability_zone_1}"
+output "nat_gateway_ids" {
+  description = "AWS IDs of the NAT gateways created"
+  value       = ["${aws_nat_gateway.nat_gateway.*.id}"]
 }
 
-output "availability_zone_2" {
-  value = "${local.availability_zone_2}"
+output "nat_gateway_public_ips" {
+  description = "NAT gateways Public IPs"
+  value       = ["${aws_nat_gateway.nat_gateway.*.public_ip}"]
 }
 
-output "public_ip_1" {
-  value = "${module.nat_gateway_1.public_ip}"
-}
-
-
-output "public_ip_2" {
-  value = "${module.nat_gateway_2.public_ip}"
+output "availability_zones" {
+  description = "List of Availability Zones where subnets were created"
+  value       = ["${aws_subnet.public.*.availability_zone}"]
 }
