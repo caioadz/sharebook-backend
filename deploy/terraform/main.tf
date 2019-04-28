@@ -27,3 +27,9 @@ module "public_private_multiaz_subnets" {
 
   availability_zone_count = 2
 }
+
+module "default_instance_role" {
+  source = "./modules/default-instance-role"
+
+  prefix = "${var.service_name}"
+}
