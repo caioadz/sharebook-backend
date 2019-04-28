@@ -7,6 +7,6 @@ variable "vpc_id" {
 }
 
 variable "availability_zone_count" {
-  description = "Number of availability zones you want to distribute your subnets. 0 for all availability zones from the region."
+  description = "Number of availability zones you want to distribute your subnets. 0 for all availability zones whitin the region."
   default = 0
 }
