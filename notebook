@@ -34,7 +34,8 @@ Components:
 - N Private subnets
 - N NAT Gateways (+2 EIPs)
 - N Route table rule for NAT Gateway (Custom)
-- N ELBs
+
+- 1 ELB
 
 N = Number of AZs we will deploy
 
@@ -112,19 +113,22 @@ AWS Client VPN
 
 TO DO
 
-VPC:
+- Criar role para EC2
 
-- Route table
+Attachar policy AmazonEC2RoleforSSM
+Attachar policy AmazonEC2ContainerServiceforEC2Role
 
-Adicionar regra na Main: 0.0.0.0/0 > Internet Gateway
-Criar Custom por AZ e adicionar regra: 0.0.0.0/0 > NAT Gateway
+- Criar Security Group para instancias do ECS
 
-- Atualizar doc
-- Atualizar terraform
+Allow * from ELB Security Group
 
-ECS:
+- Criar Security Group para ELB
 
-- Instalar SSM Agent via User-Data
+Allow 80 from Everyone
+
+- Criar Launch Configuration
+
+- Instalar SSM Agent via User-Data via User-Data do Launch Configuration
 
 #!/bin/bash
 # Install JQ JSON parser
@@ -136,6 +140,10 @@ region=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/documen
 # Install the SSM agent RPM
 yum install -y https://amazon-ssm-$region.s3.amazonaws.com/latest/linux_amd64/amazon-ssm-agent.rpm
 
-- Criar role para EC2
+- Criar Auto Scaling Group
 
-Attachar policy AmazonEC2RoleforSSM
+- Criar Task Definition
+
+- Criar ELB
+
+- Criar Service
