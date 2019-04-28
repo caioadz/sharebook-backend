@@ -91,3 +91,35 @@ AWS Site-to-Site VPN
 
 AWS Client VPN
 - https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/what-is.html
+
+--------------
+
+TO DO
+
+VPC:
+
+- Route table
+
+Adicionar regra na Main: 0.0.0.0/0 > Internet Gateway
+Criar Custom por AZ e adicionar regra: 0.0.0.0/0 > NAT Gateway
+
+- Atualizar doc
+- Atualizar terraform
+
+ECS:
+
+- Instalar SSM Agent via User-Data
+
+#!/bin/bash
+# Install JQ JSON parser
+yum install -y jq
+
+# Get the current region from the instance metadata
+region=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)
+
+# Install the SSM agent RPM
+yum install -y https://amazon-ssm-$region.s3.amazonaws.com/latest/linux_amd64/amazon-ssm-agent.rpm
+
+- Criar role para EC2
+
+Attachar policy AmazonEC2RoleforSSM
