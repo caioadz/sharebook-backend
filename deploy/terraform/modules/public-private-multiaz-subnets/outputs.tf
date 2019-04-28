@@ -20,12 +20,12 @@ output "private_subnet_cidrs" {
 
 output "nat_gateway_ids" {
   description = "AWS IDs of the NAT gateways created"
-  value       = ["${aws_nat_gateway.nat_gateway.*.id}"]
+  value       = ["${module.nat_gateway.ids}"]
 }
 
 output "nat_gateway_public_ips" {
   description = "NAT gateways Public IPs"
-  value       = ["${aws_nat_gateway.nat_gateway.*.public_ip}"]
+  value       = ["${module.nat_gateway.public_ips}"]
 }
 
 output "availability_zones" {

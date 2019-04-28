@@ -49,21 +49,11 @@ resource "aws_subnet" "public" {
 # CREATE A NAT GATEWAY FOR EACH PUBLIC SUBNET
 # ---------------------------------------------------------------------------------------------------------------------
 
-resource "aws_eip" "eip" {
-  count = "${local.subnet_count}"
+module "nat_gateway" {
+  source = "./modules/nat-gateway"
+  
+  name = "${var.prefix}"
+  subnet_ids = "${aws_subnet.public.*.id}"
 
-  tags = {
-    Name = "${var.prefix}-${count.index}"
-  }
-}
-
-resource "aws_nat_gateway" "nat_gateway" {
-  count = "${local.subnet_count}"
-
-  allocation_id = "${element(aws_eip.eip.*.id, count.index)}"
-  subnet_id     = "${element(aws_subnet.public.*.id, count.index)}"
-
-  tags = {
-    Name = "${var.prefix}-${count.index}"
-  }
+  subnet_count = "${local.subnet_count}"
 }
