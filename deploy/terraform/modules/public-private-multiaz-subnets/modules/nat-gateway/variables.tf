@@ -4,6 +4,7 @@ variable "name" {
 
 
 variable "subnet_ids" {
+  type = "list"
   description = "List of public subnets where you want to assign your NAT Gateways."  
 }
 
