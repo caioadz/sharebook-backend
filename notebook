@@ -1,4 +1,4 @@
-CI/CD on CircleCI:
+CI/CD on CircleCI
 
 1. Config
 
@@ -22,7 +22,23 @@ Image Repository
 
 -----
 
-VPC architecture:
+VPC 
+
+Components:
+
+- 1 VPC
+- 1 Internet Gateway
+- 1 Route table rule for Internet Gateway (Default)
+- N Availability Zones
+- N Public subnets
+- N Private subnets
+- N NAT Gateways (+2 EIPs)
+- N Route table rule for NAT Gateway (Custom)
+- N ELBs
+
+N = Number of AZs we will deploy
+
+Architecture:
 
 1. All public
 
@@ -92,7 +108,7 @@ AWS Site-to-Site VPN
 AWS Client VPN
 - https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/what-is.html
 
---------------
+-----
 
 TO DO
 
