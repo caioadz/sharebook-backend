@@ -11,7 +11,7 @@ data "aws_iam_policy_document" "assume_role_policy" {
 
 resource "aws_iam_role" "iam_role" {
   name               = "${var.prefix}-DefaultInstanceRole"
-  descrition         = "Role used by ECS Instances with permissions needed to access the ECS Cluster and other basic services."
+  description        = "Role used by ECS Instances with permissions needed to access the ECS Cluster and other basic services."
   assume_role_policy = "${data.aws_iam_policy_document.assume_role_policy.json}"
 }
 
