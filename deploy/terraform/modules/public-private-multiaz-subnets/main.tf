@@ -55,6 +55,28 @@ resource "aws_subnet" "public" {
   }
 }
 
+resource "aws_route_table" "private_route_table" {
+  count  = "${local.subnet_count}"
+
+  vpc_id = "${var.vpc_id}"
+
+  route = {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = "${element(module.nat_gateway.ids, count.index)}"
+  }
+
+  tags = {
+    Name = "${var.prefix}-private-${count.index}"
+  }
+}
+
+resource "aws_route_table_association" "private_route_table_association" {
+  count  = "${local.subnet_count}"
+
+  subnet_id = "${element(aws_subnet.private.*.id, count.index)}"
+  route_table_id = "${element(aws_route_table.private_route_table.*.id, count.index)}"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # CREATE A NAT GATEWAY FOR EACH PUBLIC SUBNET
 # ---------------------------------------------------------------------------------------------------------------------
