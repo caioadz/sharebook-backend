@@ -28,8 +28,8 @@ module "public_private_multiaz_subnets" {
   availability_zone_count = 2
 }
 
-module "default_instance_role" {
-  source = "./modules/default-instance-role"
+module "ecs_cluster" {
+  source = "./modules/ecs-cluster"
 
   prefix = "${var.service_name}"
 }
