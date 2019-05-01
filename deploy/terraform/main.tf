@@ -32,4 +32,5 @@ module "ecs_cluster" {
   source = "./modules/ecs-cluster"
 
   prefix = "${var.service_name}"
+  vpc_id = "${module.vpc_with_internet_gateway.vpc_id}"
 }
