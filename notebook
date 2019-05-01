@@ -111,6 +111,16 @@ AWS Client VPN
 
 -----
 
+Load Balancer
+
+ALB vs NLB:
+- https://medium.com/containers-on-aws/using-aws-application-load-balancer-and-network-load-balancer-with-ec2-container-service-d0cb0b1d5ae5
+
+Target Groups:
+- https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html#registered-targets
+
+-----
+
 TO DO
 
 - Criar role para EC2
