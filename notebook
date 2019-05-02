@@ -157,3 +157,11 @@ yum install -y https://amazon-ssm-$region.s3.amazonaws.com/latest/linux_amd64/am
 - Criar ELB
 
 - Criar Service
+
+- Database
+
+- Put ConnectionString on Parameter Store
+
+- Update the ContainerDefinition with credentials from Parameter Store
+
+- Migrations
