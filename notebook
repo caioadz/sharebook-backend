@@ -158,6 +158,8 @@ yum install -y https://amazon-ssm-$region.s3.amazonaws.com/latest/linux_amd64/am
 
 - Criar Service
 
+- Continuous Delivery (CodeDeploy? Lambda?)
+
 - Database
 
 - Put ConnectionString on Parameter Store
