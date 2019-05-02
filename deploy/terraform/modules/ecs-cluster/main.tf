@@ -1,3 +1,7 @@
+resource "aws_ecs_cluster" "ecs_cluster" {
+  name = "${var.prefix}"
+}
+
 module "default_instance_role" {
   source = "./modules/default-instance-role"
 
@@ -38,4 +42,29 @@ module "ecs_security_group" {
   ]
 
   computed_ingress_with_source_security_group_id_count = 1
+}
+
+module "launch_configuration" {
+  source = "./modules/launch-configuration"
+
+  name          = "${var.prefix}-lc"
+  image_id      = "${var.image_id}"
+  instance_type = "${var.instance_type}"
+
+  iam_instance_profile = "${module.default_instance_role.instance_profile_name}"
+  security_groups = ["${module.ecs_security_group.id}"]
+
+  user_data = <<-EOF
+    #!/bin/bash
+    echo ECS_CLUSTER=${aws_ecs_cluster.ecs_cluster.name} >> /etc/ecs/ecs.config;echo ECS_BACKEND_HOST= >> /etc/ecs/ecs.config;
+
+    # Install JQ JSON parser
+    yum install -y jq
+
+    # Get the current region from the instance metadata
+    region=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)
+
+    # Install the SSM agent RPM
+    yum install -y https://amazon-ssm-$region.s3.amazonaws.com/latest/linux_amd64/amazon-ssm-agent.rpm
+  EOF
 }
