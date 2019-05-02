@@ -15,6 +15,11 @@ resource "aws_iam_role" "iam_role" {
   assume_role_policy = "${data.aws_iam_policy_document.assume_role_policy.json}"
 }
 
+resource "aws_iam_instance_profile" "iam_instance_profile" {
+  name = "${aws_iam_role.iam_role.name}"
+  role = "${aws_iam_role.iam_role.name}"
+}
+
 resource "aws_iam_role_policy_attachment" "attach_ssm_policy" {
   role       = "${aws_iam_role.iam_role.name}"
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
