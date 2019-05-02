@@ -22,3 +22,8 @@ variable "security_groups" {
 variable "user_data" {
   description = "Script that will be executed when instances launch."
 }
+
+variable "associate_public_ip_address" {
+  description = "Determine wether or not a public ip should be assigned to the instances."
+  default     = false
+}
