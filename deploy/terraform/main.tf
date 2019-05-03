@@ -35,9 +35,10 @@ module "public_private_multiaz_subnets" {
 module "ecs_cluster" {
   source = "./modules/ecs-cluster"
 
-  prefix     = "${local.prefix}"
-  vpc_id     = "${module.vpc_with_internet_gateway.vpc_id}"
-  subnet_ids = "${module.public_private_multiaz_subnets.public_subnet_ids}"
+  prefix               = "${local.prefix}"
+  vpc_id               = "${module.vpc_with_internet_gateway.vpc_id}"
+  subnet_ids           = "${module.public_private_multiaz_subnets.public_subnet_ids}"
+  lb_security_group_id = "${module.public_private_multiaz_subnets.alb_security_group_id}"
 
   image_id = "${var.image_id}"
   instance_type = "${var.instance_type}"
