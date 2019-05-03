@@ -13,3 +13,12 @@ variable "image_id" {
 variable "instance_type" {
   description = "Instance type which will be used to created your ECS instances."
 }
+
+variable "desired_capacity" {
+  description = "The number of instances the cluster should have at any time."
+}
+
+variable "subnet_ids" {
+  type        = "list"
+  description = "ID of the subnets where you want to distribute your instances."
+}

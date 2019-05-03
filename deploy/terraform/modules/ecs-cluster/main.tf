@@ -47,7 +47,7 @@ module "ecs_security_group" {
 module "launch_configuration" {
   source = "./modules/launch-configuration"
 
-  name          = "${var.prefix}-lc"
+  name_prefix   = "${var.prefix}-lc"
   image_id      = "${var.image_id}"
   instance_type = "${var.instance_type}"
 
@@ -67,4 +67,13 @@ module "launch_configuration" {
     # Install the SSM agent RPM
     yum install -y https://amazon-ssm-$region.s3.amazonaws.com/latest/linux_amd64/amazon-ssm-agent.rpm
   EOF
+}
+
+module "auto_scaling" {
+  source = "./modules/auto-scaling-group"
+  
+  name                 = "${var.prefix}-as"
+  desired_capacity     = "${var.desired_capacity}"
+  launch_configuration = "${module.launch_configuration.id}"
+  vpc_zone_identifier  = "${var.subnet_ids}"
 }
