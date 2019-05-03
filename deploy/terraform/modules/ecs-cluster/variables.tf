@@ -22,3 +22,7 @@ variable "subnet_ids" {
   type        = "list"
   description = "ID of the subnets where you want to distribute your instances."
 }
+
+variable "lb_security_group_id" {
+  description = "Security group id of your Load Balancer."
+}

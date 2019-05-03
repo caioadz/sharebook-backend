@@ -8,25 +8,8 @@ module "default_instance_role" {
   prefix = "${var.prefix}"
 }
 
-module "alb_security_group" {
-  source = "./modules/security-group"
-  
-  name = "${var.prefix}-alb"
-  description = "Security Group with rules for our Application Load Balancer"
-  vpc_id = "${var.vpc_id}"
-
-  ingress_with_cidr_blocks = [
-    {
-      from_port = 80,
-      to_port = 80,
-      protocol = "tcp"
-      cidr_blocks = "0.0.0.0/0"
-    }
-  ]
-}
-
 module "ecs_security_group" {
-  source = "./modules/security-group"
+  source = "../security-group"
   
   name = "${var.prefix}-ecs"
   description = "Security Group with rules for our ECS instances"
@@ -37,7 +20,7 @@ module "ecs_security_group" {
       from_port = 0,
       to_port = 0,
       protocol = "all"
-      source_security_group_id = "${module.alb_security_group.id}"
+      source_security_group_id = "${var.lb_security_group_id}"
     }
   ]
 
