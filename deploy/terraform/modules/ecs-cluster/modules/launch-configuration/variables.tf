@@ -1,5 +1,5 @@
-variable "name" {
-  description = "Name of the launch configuration."
+variable "name_prefix" {
+  description = "Name prefix of the launch configuration."
 }
 
 variable "image_id" {
