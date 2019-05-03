@@ -155,6 +155,8 @@ yum install -y https://amazon-ssm-$region.s3.amazonaws.com/latest/linux_amd64/am
 *** Check how Terraform handle changes to the Launch Configuration associated to this Auto Scaling Group
 
 - Criar ELB
+-- Listener
+-- Target Group
 
 - Criar Task Definition
 
