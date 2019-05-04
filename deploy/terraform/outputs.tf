@@ -1,9 +1,9 @@
 output "ecr_repository_arn" {
-  value = "${module.ecr_repository.arn}"
+  value = "${module.application.ecr_repository_arn}"
 }
 
 output "ecr_repository_url" {
-  value = "${module.ecr_repository.repository_url}"
+  value = "${module.application.ecr_repository_url}"
 }
 
 output "vpc_arn" {
