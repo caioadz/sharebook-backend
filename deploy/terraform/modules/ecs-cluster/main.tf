@@ -8,6 +8,27 @@ module "default_instance_role" {
   prefix = "${var.prefix}"
 }
 
+# ---------------------------------------------------------------------------------------------------------------------
+# CREATE DEFAULT SECURITY GROUP
+# ---------------------------------------------------------------------------------------------------------------------
+
+module "alb_security_group" {
+  source = "../security-group"
+  
+  name = "${var.prefix}-alb"
+  description = "Security Group with rules for our Application Load Balancer"
+  vpc_id = "${var.vpc_id}"
+
+  ingress_with_cidr_blocks = [
+    {
+      from_port = 80,
+      to_port = 80,
+      protocol = "tcp"
+      cidr_blocks = "0.0.0.0/0"
+    }
+  ]
+}
+
 module "ecs_security_group" {
   source = "../security-group"
   
@@ -20,12 +41,16 @@ module "ecs_security_group" {
       from_port = 0,
       to_port = 0,
       protocol = "all"
-      source_security_group_id = "${var.lb_security_group_id}"
+      source_security_group_id = "${module.alb_security_group.id}"
     }
   ]
 
   computed_ingress_with_source_security_group_id_count = 1
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# CREATE AUTO SCALING GROUP
+# ---------------------------------------------------------------------------------------------------------------------
 
 module "launch_configuration" {
   source = "./modules/launch-configuration"
@@ -58,5 +83,29 @@ module "auto_scaling" {
   name                 = "${var.prefix}-as"
   desired_capacity     = "${var.desired_capacity}"
   launch_configuration = "${module.launch_configuration.id}"
-  vpc_zone_identifier  = "${var.subnet_ids}"
+  vpc_zone_identifier  = "${var.instance_subnets}"
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# CREATE LOAD BALANCER
+# ---------------------------------------------------------------------------------------------------------------------
+
+module "load_balancer" {
+  source = "./modules/load-balancer"
+  
+  name = "${var.prefix}"
+  security_groups = ["${module.alb_security_group.id}"]
+  subnet_ids = "${var.lb_subnets}"
+
+  target_type = "instance"
+  target_port = 80
+  target_protocol = "HTTP"
+  vpc_id = "${var.vpc_id}"
+
+  listeners = [
+    {
+      port = 80,
+      protocol = "HTTP"
+    }
+  ]
 }

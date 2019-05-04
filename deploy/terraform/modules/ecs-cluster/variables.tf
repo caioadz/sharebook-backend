@@ -18,11 +18,12 @@ variable "desired_capacity" {
   description = "The number of instances the cluster should have at any time."
 }
 
-variable "subnet_ids" {
+variable "instance_subnets" {
   type        = "list"
   description = "ID of the subnets where you want to distribute your instances."
 }
 
-variable "lb_security_group_id" {
-  description = "Security group id of your Load Balancer."
+variable "lb_subnets" {
+  type        = "list"
+  description = "ID of the subnets where you want to place your load balancer."
 }
