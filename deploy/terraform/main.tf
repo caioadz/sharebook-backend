@@ -14,32 +14,12 @@ module "ecr_repository" {
   repository_name = "${var.service_name}"
 }
 
-module "vpc_with_internet_gateway" {
-  source = "./modules/vpc-with-internet-gateway"
-
-  vpc_name   = "${local.prefix}"
-  cidr_block = "10.0.0.0/16"
-
-  internet_gateway_name = "${local.prefix}"
-}
-
-module "public_private_multiaz_subnets" {
-  source = "./modules/public-private-multiaz-subnets"
-
+module "infrastructure" {
+  source = "./modules/infrastructure"
+  
   prefix = "${local.prefix}"
-  vpc_id = "${module.vpc_with_internet_gateway.vpc_id}"
-
-  availability_zone_count = 2
-}
-
-module "ecs_cluster" {
-  source = "./modules/ecs-cluster"
-
-  prefix               = "${local.prefix}"
-  vpc_id               = "${module.vpc_with_internet_gateway.vpc_id}"
-  instance_subnets     = "${module.public_private_multiaz_subnets.private_subnet_ids}"
-  lb_subnets           = "${module.public_private_multiaz_subnets.public_subnet_ids}"
-
+  cidr_block = "${var.cidr_block}"
+  availability_zone_count = "${var.availability_zone_count}"
   image_id = "${var.image_id}"
   instance_type = "${var.instance_type}"
   desired_capacity = "${var.desired_capacity}"

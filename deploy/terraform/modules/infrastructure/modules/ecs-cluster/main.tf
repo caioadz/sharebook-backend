@@ -13,7 +13,7 @@ module "default_instance_role" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "alb_security_group" {
-  source = "../security-group"
+  source = "../../../security-group"
   
   name = "${var.prefix}-alb"
   description = "Security Group with rules for our Application Load Balancer"
@@ -30,7 +30,7 @@ module "alb_security_group" {
 }
 
 module "ecs_security_group" {
-  source = "../security-group"
+  source = "../../../security-group"
   
   name = "${var.prefix}-ecs"
   description = "Security Group with rules for our ECS instances"
