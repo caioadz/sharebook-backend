@@ -89,31 +89,3 @@ module "nat_gateway" {
   subnet_count = "${local.subnet_count}"
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
-# CREATE A PUBLIC APPLICATION LOAD BALANCER
-# ---------------------------------------------------------------------------------------------------------------------
-
-module "alb_security_group" {
-  source = "../security-group"
-  
-  name = "${var.prefix}-alb"
-  description = "Security Group with rules for our Application Load Balancer"
-  vpc_id = "${var.vpc_id}"
-
-  ingress_with_cidr_blocks = [
-    {
-      from_port = 80,
-      to_port = 80,
-      protocol = "tcp"
-      cidr_blocks = "0.0.0.0/0"
-    }
-  ]
-}
-
-module "load_balancer" {
-  source = "./modules/load-balancer"
-  
-  name = "${var.prefix}"
-  security_groups = ["${module.alb_security_group.id}"]
-  subnet_ids = "${aws_subnet.public.*.id}"
-}
