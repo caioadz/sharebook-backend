@@ -28,8 +28,8 @@ module "load_balancer" {
   ]
 }
 
-module "task_definition" {
-  source = "./modules/task-definition"
+module "ecs_task_definition" {
+  source = "./modules/ecs-task-definition"
 
   family = "${local.prefix}"
 

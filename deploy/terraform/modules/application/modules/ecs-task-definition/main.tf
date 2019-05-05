@@ -25,7 +25,7 @@ data "template_file" "container_definition" {
   }
 }
 
-resource "aws_ecs_task_definition" "task_definition" {
+resource "aws_ecs_task_definition" "ecs_task_definition" {
   family                = "${var.family}"
   container_definitions = "${data.template_file.container_definition.rendered}"
 }
