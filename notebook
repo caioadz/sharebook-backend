@@ -172,4 +172,4 @@ yum install -y https://amazon-ssm-$region.s3.amazonaws.com/latest/linux_amd64/am
 
 - Migrations
 
-- Others: Terraform Backend, TFVARS file
+- Others: Terraform Backend, TFVARS file, Tags
