@@ -20,6 +20,11 @@ resource "aws_lb_listener" "lb_listener" {
 }
 
 resource "aws_lb_target_group" "lb_target_group" {
+  # We need to wait for the Load Balancer to be up
+  # before associating the Service to this Target Group.
+  # Otherwise, this happens: "The target group with targetGroupArn * does not have an associated load balancer."
+  depends_on = ["aws_lb.lb"]
+
   name = "${var.name}"
 
   target_type = "${var.target_type}"
