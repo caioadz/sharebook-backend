@@ -21,11 +21,12 @@ module "application" {
   service_name = "${var.service_name}"
   environment  = "${var.environment}"
 
-  image_tag                   = "${var.image_tag}"
-  container_cpu               = "${var.container_cpu}"
-  container_memory            = "${var.container_memory}"
-  container_port              = "${var.container_port}"
-  container_protocol          = "${var.container_protocol}"
+  image_tag          = "${var.image_tag}"
+  container_cpu      = "${var.container_cpu}"
+  container_memory   = "${var.container_memory}"
+  container_port     = "${var.container_port}"
+  container_hostPort = "${var.container_hostPort}"
+  container_protocol = "${var.container_protocol}"
 
   vpc_id                = "${module.infrastructure.vpc_id}"
   lb_security_group_ids = ["${module.infrastructure.lb_security_group_id}"]

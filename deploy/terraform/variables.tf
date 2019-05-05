@@ -71,7 +71,12 @@ variable "container_port" {
   default     = 80
 }
 
+variable "container_hostPort" {
+  description = "The port on the host to associate with the container port."
+  default     = 0
+}
+
 variable "container_protocol" {
   description = "The protocol on the container to associate with the load balancer."
-  default     = "http"
+  default     = "tcp"
 }

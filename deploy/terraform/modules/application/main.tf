@@ -41,7 +41,8 @@ module "ecs_task_definition" {
 
   container_portMappings = [
     {
-      containerPort = "${var.container_port}"
+      containerPort = "${var.container_port}",
+      hostPort      = "${var.container_hostPort}",
       protocol      = "${var.container_protocol}"
     },
   ]

@@ -28,6 +28,10 @@ variable "container_port" {
   description = "The port on the container to associate with the load balancer."
 }
 
+variable "container_hostPort" {
+  description = "The port on the host to associate with the container port."
+}
+
 variable "container_protocol" {
   description = "The protocol on the container to associate with the load balancer."
 }
