@@ -44,6 +44,7 @@ variable "desired_capacity" {
 
 variable "desired_task_count" {
   description = "Number of tasks you want to keep running on your service."
+  default     = 1
 }
 
 #####################
