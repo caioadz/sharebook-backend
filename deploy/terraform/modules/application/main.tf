@@ -53,9 +53,10 @@ module "ecs_service" {
   
   name = "${local.prefix}"
   cluster_arn = "${var.ecs_cluster_arn}"
-  task_definition = "${module.ecs_task_definition.arn}"
   desired_count = "${var.desired_task_count}"
-  target_group_arn = "${module.load_balancer.target_group_arn}"
-  container_name = "${module.ecs_task_definition.container_name}"
   container_port = "${var.container_port}"
+  
+  task_definition = "${module.ecs_task_definition.arn}"
+  container_name = "${module.ecs_task_definition.container_name}"
+  target_group_arn = "${module.load_balancer.target_group_arn}"
 }
