@@ -88,4 +88,3 @@ module "nat_gateway" {
 
   subnet_count = "${local.subnet_count}"
 }
-

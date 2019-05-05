@@ -16,6 +16,6 @@ variable "launch_configuration" {
 }
 
 variable "vpc_zone_identifier" {
-  type = "list"
+  type        = "list"
   description = "A list of subnets where your instances will be launched."
 }

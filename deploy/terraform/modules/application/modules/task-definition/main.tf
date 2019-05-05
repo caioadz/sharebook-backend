@@ -16,12 +16,12 @@ data "template_file" "container_definition" {
   template = "${file("${path.module}/templates/container_definitions.json.tpl")}"
 
   vars {
-    name = "${var.container_name}"
-    cpu = "${var.container_cpu == 0 ? "null" : var.container_cpu}"
-    memory = "${var.container_memory == 0 ? "null" : var.container_memory}"
+    name              = "${var.container_name}"
+    cpu               = "${var.container_cpu == 0 ? "null" : var.container_cpu}"
+    memory            = "${var.container_memory == 0 ? "null" : var.container_memory}"
     memoryReservation = "${var.container_memoryReservation == 0 ? "null" : var.container_memoryReservation}"
-    image = "${var.container_image}"
-    portMappings = "${local.portMappings == "[]" ? "null" : local.portMappings}"
+    image             = "${var.container_image}"
+    portMappings      = "${local.portMappings == "[]" ? "null" : local.portMappings}"
   }
 }
 

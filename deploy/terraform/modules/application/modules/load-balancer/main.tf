@@ -10,8 +10,8 @@ resource "aws_lb_listener" "lb_listener" {
 
   load_balancer_arn = "${aws_lb.lb.arn}"
 
-  port            = "${lookup(var.listeners[count.index], "port")}"
-  protocol        = "${lookup(var.listeners[count.index], "protocol")}"
+  port     = "${lookup(var.listeners[count.index], "port")}"
+  protocol = "${lookup(var.listeners[count.index], "protocol")}"
 
   default_action {
     type             = "forward"
@@ -23,8 +23,8 @@ resource "aws_lb_target_group" "lb_target_group" {
   name = "${var.name}"
 
   target_type = "${var.target_type}"
-  port = "${var.target_port}"
-  protocol = "${var.target_protocol}"
+  port        = "${var.target_port}"
+  protocol    = "${var.target_protocol}"
 
   vpc_id = "${var.vpc_id}"
 }

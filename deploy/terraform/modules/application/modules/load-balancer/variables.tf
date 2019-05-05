@@ -18,7 +18,7 @@ variable "subnet_ids" {
 }
 
 variable "listeners" {
-  type = "list"
+  type        = "list"
   description = "A listener is a process that checks for connection requests, using the protocol and port that you configured."
 }
 

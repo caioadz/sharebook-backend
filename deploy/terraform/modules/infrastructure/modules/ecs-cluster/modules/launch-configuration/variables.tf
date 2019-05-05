@@ -15,7 +15,7 @@ variable "instance_type" {
 }
 
 variable "security_groups" {
-  type = "list"
+  type        = "list"
   description = "Security Group which will be associated to the instance."
 }
 
