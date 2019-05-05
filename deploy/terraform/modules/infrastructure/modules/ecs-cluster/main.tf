@@ -12,11 +12,11 @@ module "default_instance_role" {
 # CREATE DEFAULT SECURITY GROUP
 # ---------------------------------------------------------------------------------------------------------------------
 
-module "alb_security_group" {
+module "lb_security_group" {
   source = "../../../security-group"
   
   name = "${var.prefix}-alb"
-  description = "Security Group with rules for our Application Load Balancer"
+  description = "Security Group with rules for our Load Balancer"
   vpc_id = "${var.vpc_id}"
 
   ingress_with_cidr_blocks = [
@@ -41,7 +41,7 @@ module "ecs_security_group" {
       from_port = 0,
       to_port = 0,
       protocol = "all"
-      source_security_group_id = "${module.alb_security_group.id}"
+      source_security_group_id = "${module.lb_security_group.id}"
     }
   ]
 
