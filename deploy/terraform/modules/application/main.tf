@@ -41,8 +41,8 @@ module "ecs_task_definition" {
 
   container_portMappings = [
     {
-      containerPort = "${var.container_port}",
-      hostPort      = "${var.container_hostPort}",
+      containerPort = "${var.container_port}"
+      hostPort      = "${var.container_hostPort}"
       protocol      = "${var.container_protocol}"
     },
   ]
@@ -50,13 +50,13 @@ module "ecs_task_definition" {
 
 module "ecs_service" {
   source = "./modules/ecs-service"
-  
-  name = "${local.prefix}"
-  cluster_arn = "${var.ecs_cluster_arn}"
-  desired_count = "${var.desired_task_count}"
+
+  name           = "${local.prefix}"
+  cluster_arn    = "${var.ecs_cluster_arn}"
+  desired_count  = "${var.desired_task_count}"
   container_port = "${var.container_port}"
-  
-  task_definition = "${module.ecs_task_definition.arn}"
-  container_name = "${module.ecs_task_definition.container_name}"
+
+  task_definition  = "${module.ecs_task_definition.arn}"
+  container_name   = "${module.ecs_task_definition.container_name}"
   target_group_arn = "${module.load_balancer.target_group_arn}"
 }

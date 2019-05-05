@@ -1,6 +1,6 @@
 locals {
   classes = {
-    digit = "/\"(-[[:digit:]]|[[:digit:]]+)\"/",
+    digit = "/\"(-[[:digit:]]|[[:digit:]]+)\"/"
     null  = "/\"(null)\"/"
   }
 

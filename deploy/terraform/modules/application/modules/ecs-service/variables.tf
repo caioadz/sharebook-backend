@@ -10,7 +10,6 @@ variable "task_definition" {
   description = "The family and revision (family:revision) or full ARN of the task definition that you want to run in your service."
 }
 
-
 variable "desired_count" {
   description = "Number of instantiations of the specified task definition to place and keep running on your cluster."
 }
