@@ -6,6 +6,32 @@ variable "environment" {
   description = "Environment name."
 }
 
+variable "image_tag" {
+  description = "Tag applied to the image."
+}
+
+variable "container_cpu" {
+  description = "The number of cpu units reserved for the container."
+}
+
+variable "container_memory" {
+  description = "The hard limit (in MiB) of memory to present to the container."
+  default     = 0
+}
+
+variable "container_memoryReservation" {
+  description = "The soft limit (in MiB) of memory to reserve for the container."
+  default     = 0
+}
+
+variable "container_port" {
+  description = "The port on the container to associate with the load balancer."
+}
+
+variable "container_protocol" {
+  description = "The protocol on the container to associate with the load balancer."
+}
+
 ############################################################################
 # VARIABLES THAT SHOULD BE REFACTORED INTO DATASOURCES FILTERING FROM TAGS
 ############################################################################

@@ -13,6 +13,10 @@ variable "environment" {
   default     = "prod"
 }
 
+#####################
+# INFRASTRUCTURE
+#####################
+
 variable "cidr_block" {
   description = "CIDR block of the VPC that will be created."
   default     = "10.0.0.0/16"
@@ -36,4 +40,33 @@ variable "instance_type" {
 variable "desired_capacity" {
   description = "The number of instances the cluster should have at any time."
   default     = 1
+}
+
+#####################
+# INFRASTRUCTURE
+#####################
+
+variable "image_tag" {
+  description = "Tag applied to the image."
+  default     = "master"
+}
+
+variable "container_cpu" {
+  description = "The number of cpu units reserved for the container."
+  default     = 0
+}
+
+variable "container_memory" {
+  description = "The hard limit (in MiB) of memory to present to the container."
+  default     = 128
+}
+
+variable "container_port" {
+  description = "The port on the container to associate with the load balancer."
+  default     = 80
+}
+
+variable "container_protocol" {
+  description = "The protocol on the container to associate with the load balancer."
+  default     = "http"
 }

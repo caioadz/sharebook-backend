@@ -33,14 +33,16 @@ module "ecs_task_definition" {
 
   family = "${local.prefix}"
 
-  container_name   = "${local.prefix}"
-  container_memory = "128"
-  container_image  = "${module.ecr_repository.repository_url}:master"
+  container_name              = "${local.prefix}"
+  container_cpu               = "${var.container_cpu}"
+  container_memory            = "${var.container_memory}"
+  container_memoryReservation = "${var.container_memoryReservation}"
+  container_image             = "${module.ecr_repository.repository_url}:${var.image_tag}"
 
   container_portMappings = [
     {
-      containerPort = 80
-      protocol      = "tcp"
+      containerPort = "${var.container_port}"
+      protocol      = "${var.container_protocol}"
     },
   ]
 }
