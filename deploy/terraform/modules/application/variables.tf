@@ -32,12 +32,20 @@ variable "container_protocol" {
   description = "The protocol on the container to associate with the load balancer."
 }
 
+variable "desired_task_count" {
+  description = "Number of tasks you want to keep running on your service."
+}
+
 ############################################################################
 # VARIABLES THAT SHOULD BE REFACTORED INTO DATASOURCES FILTERING FROM TAGS
 ############################################################################
 
 variable "vpc_id" {
   description = "ID of the VPC where your resources will be placed."
+}
+
+variable "ecs_cluster_arn" {
+  description = "ECS Cluster ARN on which you want to run your Service."
 }
 
 variable "lb_security_group_ids" {

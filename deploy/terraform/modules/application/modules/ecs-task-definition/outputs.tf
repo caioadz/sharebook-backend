@@ -1,11 +1,15 @@
 output "arn" {
-  value = "Full ARN of the Task Definition (including both family and revision)."
+  value = "${aws_ecs_task_definition.ecs_task_definition.arn}"
 }
 
 output "family" {
-  value = "The family of the Task Definition."
+  value = "${aws_ecs_task_definition.ecs_task_definition.family}"
 }
 
 output "revision" {
-  value = "The revision of the task in a particular family."
+  value = "${aws_ecs_task_definition.ecs_task_definition.revision}"
+}
+
+output "container_name" {
+  value = "${var.container_name}"
 }
