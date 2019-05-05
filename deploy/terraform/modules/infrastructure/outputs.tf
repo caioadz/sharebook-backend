@@ -36,6 +36,11 @@ output "availability_zones" {
   value       = "${module.public_private_multiaz_subnets.availability_zones}"
 }
 
+output "ecs_cluster_arn" {
+  value = "${module.ecs_cluster.arn}"
+}
+
+
 output "lb_security_group_id" {
   value = "${module.ecs_cluster.lb_security_group_id}"
 }

@@ -30,4 +30,6 @@ module "application" {
   vpc_id                = "${module.infrastructure.vpc_id}"
   lb_security_group_ids = ["${module.infrastructure.lb_security_group_id}"]
   lb_subnet_ids         = "${module.infrastructure.public_subnet_ids}"
+  ecs_cluster_arn       = "${module.infrastructure.ecs_cluster_arn}"
+  desired_task_count    = "${var.desired_task_count}"
 }
