@@ -27,3 +27,19 @@ module "load_balancer" {
     }
   ]
 }
+
+module "task_definition" {
+  source = "./modules/task-definition"
+  
+  family = "${local.prefix}"
+
+  container_name = "${local.prefix}"
+  container_memory = "128"
+  container_image = "${module.ecr_repository.repository_url}:master"
+  container_portMappings = [
+    {
+      containerPort = 80,
+      protocol      = "tcp"
+    }
+  ]
+}
